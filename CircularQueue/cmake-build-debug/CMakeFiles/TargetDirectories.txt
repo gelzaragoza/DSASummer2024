@@ -1,0 +1,3 @@
+/Users/angelzaragoza/CLionProjects/CircularQueue/cmake-build-debug/CMakeFiles/CircularQueue.dir
+/Users/angelzaragoza/CLionProjects/CircularQueue/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/angelzaragoza/CLionProjects/CircularQueue/cmake-build-debug/CMakeFiles/rebuild_cache.dir
