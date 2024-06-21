@@ -1,0 +1,3 @@
+/Users/angelzaragoza/CLionProjects/Sets/cmake-build-debug/CMakeFiles/Sets.dir
+/Users/angelzaragoza/CLionProjects/Sets/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/angelzaragoza/CLionProjects/Sets/cmake-build-debug/CMakeFiles/rebuild_cache.dir
