@@ -115,7 +115,7 @@ int deleteMin(NodePtr *T) {
     free(temp);
 
     printf("Deleted min: %s\n", ret);
-    return 0; // Adjust return type as needed
+    return 0;
 }
 
 int deleteMax(NodePtr *T) {
