@@ -5,6 +5,7 @@
 #include "BST.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 void initializeBST(NodePtr *T) {
     *T = NULL;
@@ -100,4 +101,70 @@ void postorder(NodePtr T) {
         postorder(T->Right);
         printf("%s, ", T->item.prodName);
     }
+}
+
+int deleteMin(NodePtr *T) {
+    NodePtr temp, *trav;
+    char ret[20];
+
+    for (trav = T; (*trav)->Left != NULL; trav = &(*trav)->Left) {}
+    strcpy(ret, (*trav)->item.prodName); // Copy the product name to return it
+    temp = *trav;
+    *trav = temp->Right;
+    free(temp);
+
+    printf("Deleted min: %s\n", ret);
+    return 0; // Adjust return type as needed
+}
+
+int deleteMax(NodePtr *T) {
+    NodePtr temp, *trav;
+    char ret[20];
+
+    for (trav = T; (*trav)->Right != NULL; trav = &(*trav)->Right) {}
+    strcpy(ret, (*trav)->item.prodName); // Copy the product name to return it
+    temp = *trav;
+    *trav = temp->Left;
+    free(temp);
+
+    printf("Deleted max: %s\n", ret);
+    return 0; // Adjust return type as needed
+}
+
+void bfs(NodePtr T) {
+    if (T == NULL) {
+        return;
+    }
+
+    NodePtr queue[100]; // Adjust the size of the queue as needed
+    int front = 0, rear = 0;
+
+    queue[rear++] = T;
+
+    while (front < rear) {
+        NodePtr current = queue[front++];
+        printf("%s, ", current->item.prodName);
+
+        if (current->Left != NULL) {
+            queue[rear++] = current->Left;
+        }
+        if (current->Right != NULL) {
+            queue[rear++] = current->Right;
+        }
+    }
+}
+
+void printTree(NodePtr T, int space) {
+    if (T == NULL)
+        return;
+
+    space += 10;
+
+    printTree(T->Right, space);
+
+    printf("\n");
+    for (int i = 10; i < space; i++)
+        printf(" ");
+    printf("%s\n", T->item.prodName);
+    printTree(T->Left, space);
 }
