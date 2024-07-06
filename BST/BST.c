@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#define SIZE 50
 
 void initializeBST(NodePtr *T) {
     *T = NULL;
@@ -108,7 +109,7 @@ int deleteMin(NodePtr *T) {
     char ret[20];
 
     for (trav = T; (*trav)->Left != NULL; trav = &(*trav)->Left) {}
-    strcpy(ret, (*trav)->item.prodName); // Copy the product name to return it
+    strcpy(ret, (*trav)->item.prodName); 
     temp = *trav;
     *trav = temp->Right;
     free(temp);
@@ -122,13 +123,13 @@ int deleteMax(NodePtr *T) {
     char ret[20];
 
     for (trav = T; (*trav)->Right != NULL; trav = &(*trav)->Right) {}
-    strcpy(ret, (*trav)->item.prodName); // Copy the product name to return it
+    strcpy(ret, (*trav)->item.prodName); 
     temp = *trav;
     *trav = temp->Left;
     free(temp);
 
     printf("Deleted max: %s\n", ret);
-    return 0; // Adjust return type as needed
+    return 0; 
 }
 
 void bfs(NodePtr T) {
@@ -136,7 +137,7 @@ void bfs(NodePtr T) {
         return;
     }
 
-    NodePtr queue[100]; // Adjust the size of the queue as needed
+    NodePtr queue[SIZE]; 
     int front = 0, rear = 0;
 
     queue[rear++] = T;
