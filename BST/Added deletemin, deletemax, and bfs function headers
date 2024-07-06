@@ -7,22 +7,23 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct {
     int day, month, year;
-}Date;
+} Date;
 
 typedef struct {
     char prodName[20];
     float prodPrice;
     int prodQty;
     Date expDate;
-}Product;
+} Product;
 
-typedef struct node{
+typedef struct node {
     Product item;
     struct node *Left, *Right;
-}NodeType, *NodePtr;
+} NodeType, *NodePtr;
 
 void initializeBST(NodePtr *T);
 void insertProduct(NodePtr *T, Product prod);
@@ -31,5 +32,9 @@ int isMember(NodePtr T, char *prodName);
 void preorder(NodePtr T);
 void inorder(NodePtr T);
 void postorder(NodePtr T);
+int deleteMin(NodePtr *T);
+int deleteMax(NodePtr *T);
+void bfs(NodePtr T);
+void printTree(NodePtr T, int space);
 
 #endif //BST_BST_H
