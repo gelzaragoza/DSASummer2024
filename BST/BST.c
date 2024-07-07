@@ -6,7 +6,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#define SIZE 50
 
 void initializeBST(NodePtr *T) {
     *T = NULL;
@@ -68,11 +67,11 @@ void deleteProduct(NodePtr *T, char *prodName) {
     }
 }
 
-int isMember(NodePtr T, char *prodName) {
+bool isMember(NodePtr T, char *prodName) {
     if (T == NULL) {
-        return 0;
+        return false;
     } else if (strcmp(prodName, T->item.prodName) == 0) {
-        return 1;
+        return true;
     } else if (strcmp(prodName, T->item.prodName) < 0) {
         return isMember(T->Left, prodName);
     } else {
@@ -109,7 +108,7 @@ int deleteMin(NodePtr *T) {
     char ret[20];
 
     for (trav = T; (*trav)->Left != NULL; trav = &(*trav)->Left) {}
-    strcpy(ret, (*trav)->item.prodName); 
+    strcpy(ret, (*trav)->item.prodName);
     temp = *trav;
     *trav = temp->Right;
     free(temp);
@@ -123,13 +122,13 @@ int deleteMax(NodePtr *T) {
     char ret[20];
 
     for (trav = T; (*trav)->Right != NULL; trav = &(*trav)->Right) {}
-    strcpy(ret, (*trav)->item.prodName); 
+    strcpy(ret, (*trav)->item.prodName);
     temp = *trav;
     *trav = temp->Left;
     free(temp);
 
     printf("Deleted max: %s\n", ret);
-    return 0; 
+    return 0;
 }
 
 void bfs(NodePtr T) {
@@ -137,20 +136,20 @@ void bfs(NodePtr T) {
         return;
     }
 
-    NodePtr queue[SIZE]; 
-    int front = 0, rear = 0;
+    Queue q;
+    initializeQueue(&q);
 
-    queue[rear++] = T;
+    enqueue(&q, T);
 
-    while (front < rear) {
-        NodePtr current = queue[front++];
+    while (!isQueueEmpty(q)) {
+        NodePtr current = dequeue(&q);
         printf("%s, ", current->item.prodName);
 
         if (current->Left != NULL) {
-            queue[rear++] = current->Left;
+            enqueue(&q, current->Left);
         }
         if (current->Right != NULL) {
-            queue[rear++] = current->Right;
+            enqueue(&q, current->Right);
         }
     }
 }
@@ -168,4 +167,41 @@ void printTree(NodePtr T, int space) {
         printf(" ");
     printf("%s\n", T->item.prodName);
     printTree(T->Left, space);
+}
+
+void initializeQueue(Queue *Q) {
+    Q->front = NULL;
+    Q->rear = NULL;
+}
+
+bool isQueueEmpty(Queue Q) {
+    return (Q.front == NULL);
+}
+
+void enqueue(Queue *Q, NodePtr treeNode) {
+    QueueNodePtr newQueueNode = (QueueNodePtr)malloc(sizeof(QueueNode));
+    if (newQueueNode != NULL) {
+        newQueueNode->treeNode = treeNode;
+        newQueueNode->next = NULL;
+        if (Q->rear == NULL) {
+            Q->front = newQueueNode;
+        } else {
+            Q->rear->next = newQueueNode;
+        }
+        Q->rear = newQueueNode;
+    }
+}
+
+NodePtr dequeue(Queue *Q) {
+    if (!isQueueEmpty(*Q)) {
+        QueueNodePtr temp = Q->front;
+        NodePtr treeNode = temp->treeNode;
+        Q->front = temp->next;
+        if (Q->front == NULL) {
+            Q->rear = NULL;
+        }
+        free(temp);
+        return treeNode;
+    }
+    return NULL;
 }
