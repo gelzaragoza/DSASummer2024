@@ -44,13 +44,15 @@ int main(void) {
     deleteMin(&tree);
     deleteMax(&tree);
 
+    printf("Tree visualization after deleting min and max:\n");
+    printTree(tree, 0);
+    printf("\n");
+
     printf("Inorder traversal after deleting min and max:\n");
     inorder(tree);
     printf("\n");
 
-    printf("Tree visualization after deleting min and max:\n");
-    printTree(tree, 0);
-    printf("\n");
+
 
     return 0;
 }
